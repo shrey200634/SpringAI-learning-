@@ -2,6 +2,12 @@ spring:
   application:
     name: firstProj
   ai:
+    # Disables the default ChatClient auto-configuration
+    chat:
+      client:
+        enabled: false
+
+    # Your Gemini configuration
     google:
       genai:
         api-key: ${GEMINI_API_KEY}
@@ -9,3 +15,12 @@ spring:
           options:
             model: gemini-2.5-flash
             temperature: 0.7
+
+    # Your Groq configuration (via OpenAI starter)
+    openai:
+      api-key: ${GROQ_API_KEY}
+      base-url: https://api.groq.com/openai/v1
+      chat:
+        options:
+          model: llama3-8b-8192
+          temperature: 0.7
