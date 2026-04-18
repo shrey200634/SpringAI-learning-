@@ -16,11 +16,11 @@ spring:
             model: gemini-2.5-flash
             temperature: 0.7
 
-    # Your Groq configuration (via OpenAI starter)
+    # Your Groq configuration (Indented under spring.ai)
     openai:
-      api-key: ${GROQ_API_KEY}
-      base-url: https://api.groq.com/openai/v1
+      api-key: ${API_KEY}
+      base-url: https://openrouter.ai/api
       chat:
         options:
-          model: llama3-8b-8192
+          model: openrouter/free
           temperature: 0.7
