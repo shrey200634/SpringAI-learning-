@@ -9,15 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AiConfig {
 
-
-    @Bean("openAIChatClint")
-    public ChatClient openAiChatModel(OpenAiChatModel openAiChatModel){
-      return ChatClient.builder(openAiChatModel).build();
-
-    }
-    @Bean("GoogleGenChatAI")
-    public ChatClient googleGenAiChatModel(GoogleGenAiChatModel googleGenAiChatModel){
-        return ChatClient.builder(googleGenAiChatModel).build();
-
-    }
+//
+//    @Bean("openAIChatClint")
+//    public ChatClient openAiChatModel(OpenAiChatModel openAiChatModel){
+//      return ChatClient.builder(openAiChatModel).build();
+//
+//    }
+//    @Bean("GoogleGenChatAI")
+//    public ChatClient googleGenAiChatModel(GoogleGenAiChatModel googleGenAiChatModel){
+//        return ChatClient.builder(googleGenAiChatModel).build();
+//
+//    }
 }

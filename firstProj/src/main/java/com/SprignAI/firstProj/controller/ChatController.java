@@ -15,16 +15,22 @@ import org.springframework.ai.google.genai.GoogleGenAiChatModel;
 public class ChatController
 {
 
-    private ChatClient openAiChatModel;
-    private ChatClient geminiChatClient;
+    private  ChatClient chatClient;
 
-    public  ChatController(@Qualifier("openAIChatClint") ChatClient openAiChatModel ,
-                           @Qualifier("GoogleGenChatAI") ChatClient geminiChatClient){
-        this.geminiChatClient=geminiChatClient;
-        this.openAiChatModel=openAiChatModel;
-
-
+    public ChatController(ChatClient.Builder chatClintBuilder){
+        this.chatClient=chatClintBuilder.build();
     }
+
+//    private ChatClient openAiChatModel;
+//    private ChatClient geminiChatClient;
+//
+//    public  ChatController(@Qualifier("openAIChatClint") ChatClient openAiChatModel ,
+//                           @Qualifier("GoogleGenChatAI") ChatClient geminiChatClient){
+//        this.geminiChatClient=geminiChatClient;
+//        this.openAiChatModel=openAiChatModel;
+//
+//
+//    }
 
 //    public ChatController(OpenAiChatModel openAiChatModel, GoogleGenAiChatModel geminiChatModel) {
 //
@@ -36,7 +42,7 @@ public class ChatController
     @GetMapping("/chat")
     public ResponseEntity<String> chat(@RequestParam(value = "q", required = true) String q) {
 
-        var resultResponse=this.openAiChatModel
+        var resultResponse=this.chatClient
                 .prompt(q).call().content();
         return ResponseEntity.ok(resultResponse);
     }

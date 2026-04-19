@@ -5,7 +5,7 @@ spring:
     # Disables the default ChatClient auto-configuration
     chat:
       client:
-        enabled: false
+        enabled: true
 
     # Your Gemini configuration
     google:
@@ -17,10 +17,10 @@ spring:
             temperature: 0.7
 
     # Your Groq configuration (Indented under spring.ai)
-    openai:
-      api-key: ${API_KEY}
-      base-url: https://openrouter.ai/api
-      chat:
-        options:
-          model: openrouter/free
-          temperature: 0.7
+#    openai:
+#      api-key: ${API_KEY}
+#      base-url: https://openrouter.ai/api
+#      chat:
+#        options:
+#          model: openrouter/free
+#          temperature: 0.7
