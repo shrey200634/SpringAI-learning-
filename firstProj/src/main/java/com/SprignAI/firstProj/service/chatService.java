@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface chatService {
 
-    String chat(String query);
-    public  String chatTemplete ();
+  //  String chat(String query);
+
+    String chatTemplete(String q);
 
 
 }

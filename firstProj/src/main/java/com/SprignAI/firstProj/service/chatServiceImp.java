@@ -2,69 +2,43 @@ package com.SprignAI.firstProj.service;
 
 
 import com.SprignAI.firstProj.entity.Tut;
+import io.opencensus.resource.Resource;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class chatServiceImp implements chatService {
+    private  ChatClient chatClient;
+    @Value("classpath:/prompts/system-message.st")
+    private String systemMessage;
 
+    @Value("classpath:/prompts/user-message.st")
+    private String userMessage;
 
-    private ChatClient chatClient;
-
-    public chatServiceImp(ChatClient.Builder builder){
-        this.chatClient=builder.build();
+    public chatServiceImp(@Qualifier("GoogleGenChatAI") ChatClient chatClient) {
+        this.chatClient=chatClient;
     }
-    @Override
-    public String chat(String query) {
-
-        //fluent api
-        //call the llm for response
 
 
-//        String content =chatClient
-//                .prompt()
-//                .user(prompt)
-//                .system(" As an expert in cricket ")
-//                .call()
-//                .content();
+        @Override
+    public  String chatTemplete(String q ){
 
-
-
-
-        String prompt ="java collection framwork ";
-        Prompt prompt1 = new Prompt(query);
-        //sue placeholder also
-        String queryStr = "As an  expert in coding and programming. Always write program in java. now reply for this question: {query}" ;
-
-       var tutorial =chatClient
-                .prompt(prompt1)
-                .user(u->u.text(queryStr).param("query",query))
+        return  this.chatClient
+                .prompt()
+         //       .advisors(new SimpleLoggerAdvisor())
+                .system("You are a helpful coding assistant. Explain concepts with examples and code.")   // ✅
+                .user(u -> u.text("Explain the coding concept of: {concept}")
+                        .param("concept", q))
                 .call()
                 .content();
-        return tutorial;
+        }
+
     }
 
-
-    public  String chatTemplete (){
-        // step 1
-        PromptTemplate template = PromptTemplate.builder().template(" Tell about with {techName}? with an example of {Example}").build();
-        // step 2 .. render
-             String renderMessage =template.render(Map.of(
-                     "techName","Spring",
-                     "Example", "spring boot "
-             ));
-
-             // step 3 .. prompt
-        Prompt prompt = new Prompt(renderMessage);
-
-
-        return  chatClient.prompt(prompt).call().content();
-    }
-}
