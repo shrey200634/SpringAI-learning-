@@ -9,7 +9,7 @@ spring:
 
     google:
       genai:
-        api-key: {Gemini Key }
+        api-key: {apikey }
         chat:
           options:
             model: gemini-2.5-flash
