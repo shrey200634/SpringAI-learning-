@@ -5,10 +5,7 @@ import com.SprignAI.firstProj.service.chatService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ai.google.genai.GoogleGenAiChatModel;
 import reactor.core.publisher.Flux;
 
@@ -52,8 +49,11 @@ public class ChatController
 //    }
 
     @GetMapping("/chat")
-    public ResponseEntity<String> chat(@RequestParam(value = "q", required = true) String q) {
-        return ResponseEntity.ok(chatService.chatTemplete(q));
+    public ResponseEntity<String> chat(
+            @RequestParam(value = "q", required = true) String q ,
+            @RequestHeader("userId") String userId
+    ) {
+        return ResponseEntity.ok(chatService.chatTemplete(q, userId));
     }
 
     @GetMapping("/stream-chat")

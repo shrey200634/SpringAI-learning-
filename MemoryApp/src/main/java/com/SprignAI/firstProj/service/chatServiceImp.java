@@ -5,6 +5,7 @@ import com.SprignAI.firstProj.entity.Tut;
 import io.opencensus.resource.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,10 +29,11 @@ public class chatServiceImp implements chatService {
 
 
         @Override
-    public  String chatTemplete(String q ){
+    public  String chatTemplete(String q , String userId ){
 
         return  this.chatClient
                 .prompt()
+                .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, userId))
          //       .advisors(new SimpleLoggerAdvisor())
                 .system("You are a helpful coding assistant. Explain concepts with examples and code.")   // ✅
                 .user(u -> u.text("Explain the coding concept of: {concept}")

@@ -9,7 +9,7 @@ public interface chatService {
 
   //  String chat(String query);
 
-    String chatTemplete(String q);
+    String chatTemplete(String q , String userId );
 
 
     Flux<String> streamChat(String query);
